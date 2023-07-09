@@ -1,5 +1,7 @@
 ---
 author: "Luit Deka"
+execute: 
+  echo: false
 ---
 
 ```{r}
@@ -15,56 +17,68 @@ library(primer.data)
 #| warning: false
 dataset <- read_csv("Data.csv") |>
   as_tibble() |>
-  filter(Time == 2020)
+  filter(Time > 2010)
 ```
 
 ```{r}
 #| message: false
 #| warning: false
 x <- dataset |>
-  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`)|>
+  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`)|>
   select(Time, Country_Name,
          Rural_PopPerc, Rural_PopGrowth, 
          Urban_PopPerc, Urban_PopGrowth,
-         Educ_Exp)
+         Educ_Exp_Perc)
+
 ```
 
 ```{r}
 #| message: false
 #| warning: false
-data <- x |> mutate(Educ_Exp = as.numeric(Educ_Exp),
+data <- x |> mutate(Educ_Exp_Perc = as.numeric(Educ_Exp_Perc),
             Rural_PopPerc = as.numeric(Rural_PopPerc),
             Rural_PopGrowth = as.numeric(Rural_PopGrowth),
             Urban_PopPerc = as.numeric(Urban_PopPerc),
             Urban_PopGrowth = as.numeric(Urban_PopGrowth)) |>
             drop_na()
-data
 
 ```
 
 
 ```{r}
-#| message: false
-#| warning: false
-fit_obj1 <- stan_glm(data = data,
-            formula = Educ_Exp ~ Urban_PopGrowth,
-            family = gaussian,
-            refresh = 0,
-            seed = 42)
-  
-fit_obj1
+data |>
+  ggplot(aes(y = Rural_PopGrowth, x = Educ_Exp_Perc, .by = Country_Name)) +
+  geom_point() +
+  geom_smooth(method = "loess", 
+              formula = y ~ x) |>
+  labs(
+    title = "Government Expenditure on Education vs. Rural Population Growth over the years",
+    subtitle = "About half of the countries experience a decline in rural population \nwhile the other half of them experience an increase in rural population",
+    x = "Government Expenditure on Education($)",
+    y = "Percent Rural Population Growth"
+  )
 ```
 
 ```{r}
-#| message: false
-#| warning: false
-fit_obj2 <- stan_glm(data = data,
-            formula = Educ_Exp ~ Rural_PopGrowth,
-            family = gaussian,
-            refresh = 0,
-            seed = 42)
-  
-fit_obj2
+data |>
+  ggplot(aes(y = Urban_PopGrowth, x = Educ_Exp_Perc, 
+             .by = Country_Name)) +
+  geom_point() +
+  geom_smooth(method = "loess", 
+              formula = y ~ x) |>
+  labs(
+    title = "Government Expenditure on Education vs. Urban Population Growth over the years",
+    subtitle = "Most countries experience an increase in Urban Population",
+    x = "Government Expenditure on Education($)",
+    y = "Percent Urban Population Growth"
+  )
 ```
+
+```{r}
+
+```
+
+
+
 
 

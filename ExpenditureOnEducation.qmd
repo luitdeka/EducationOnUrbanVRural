@@ -1,0 +1,34 @@
+---
+title: "Expenditure On Education"
+execute: 
+  echo: false
+---
+
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+library(rstanarm)
+library(primer.data)
+```
+
+```{r}
+#| message: false
+#| warning: false
+dataset <- read_csv("Data.csv") |>
+  as_tibble() 
+```
+
+```{r}
+#| message: false
+#| warning: false
+x <- dataset |>
+  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`)|>
+  select(Time, Country_Name,
+         Rural_PopPerc, Rural_PopGrowth, 
+         Urban_PopPerc, Urban_PopGrowth,
+         Educ_Exp_Perc)
+```
+
+
