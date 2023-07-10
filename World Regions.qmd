@@ -68,12 +68,16 @@ East Asia & Pacific, North America, and Europe & Central Asia spend the most on 
 #| message: false
 #| warning: false
 data1 |>
+  mutate(World_Region = Country_Name) |>
   ggplot(aes(x = Time, y = Edu_Exp, 
-             color = Country_Name)) +
-  geom_line(aes(group = Country_Name), 
+             color = World_Region)) +
+  geom_line(aes(group = World_Region), 
             color = "grey50") +
-  geom_point(aes(color = Country_Name)) +
-  theme_bw()
+  geom_point(aes(color = World_Region)) +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
 ```
 
 
@@ -86,12 +90,16 @@ data1 |>
 #| message: false
 #| warning: false
 data1 |>
+  mutate(World_Region = Country_Name) |>
   ggplot(aes(x = Time, y = Urban_Pop, 
-             color = Country_Name)) +
-  geom_line(aes(group = Country_Name), 
+             color = World_Region)) +
+  geom_line(aes(group = World_Region), 
             color = "grey50") +
-  geom_point(aes(color = Country_Name)) +
-  theme_bw()
+  geom_point(aes(color = World_Region)) +
+  theme_bw()  +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
 ```
 
 
@@ -104,14 +112,16 @@ The East Asia & Pacific and South Asian regions have the largest rural populatio
 #| message: false
 #| warning: false
 data1 |>
+  mutate(World_Region = Country_Name) |>
   ggplot(aes(x = Time, y = Rural_Pop)) +
-  geom_line(aes(group = Country_Name), 
+  geom_line(aes(group = World_Region), 
             color = "grey50") +
-  geom_point(aes(color = Country_Name)) +
-  theme_bw()
+  geom_point(aes(color = World_Region)) +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
 ```
-
-
 
 
 ```{r}
@@ -119,15 +129,17 @@ data1 |>
 #| warning: false
 
 bar <- data1 |>
+  filter(Time < 2021) |>
+  mutate(World_Region = Country_Name) |>
   ggplot() + 
   geom_bar(
-    mapping = aes(x = Country_Name, fill = Country_Name),
+    mapping = aes(x = World_Region, fill = World_Region),
     show.legend = FALSE,
     width = 1
   ) + 
-  theme(aspect.ratio = 2)
+  theme(aspect.ratio = .5)
 
-bar + coord_flip()
+bar + coord_polar()
   
 ```
 

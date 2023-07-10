@@ -16,9 +16,16 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "About Me",
     "section": "",
-    "text": "##About Me My Name is Luit Deka and I am a senior at Liberty High School. You can reach me at luitdeka@gmail.com. Below are my sources.\n#Sources:\nI was fortunate to learn about data science in “Kane’s Free Data Science Course” led by Preceptor David Kane. Kane’s Free Data Science Bootcamp\nhttps://datacatalog.worldbank.org/search/dataset/0037712\nhttps://databank.worldbank.org/reports.aspx?source=world-development-indicators#"
+    "text": "My Name is Luit Deka and I am a senior at Liberty High School, Frisco TX USA. You can reach me at luitdeka@gmail.com.\nI was fortunate to learn about data science in “Kane’s Free Data Science Course” led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science. Kane’s Free Data Science Bootcamp\nSources for this project:\nhttps://datacatalog.worldbank.org/search/dataset/0037712\nhttps://databank.worldbank.org/reports.aspx?source=world-development-indicators#"
+  },
+  {
+    "objectID": "ExpenditureOnEducation.html",
+    "href": "ExpenditureOnEducation.html",
+    "title": "Expenditure On Education",
+    "section": "",
+    "text": "This page shows the correlation between government expenditure on education between various factors.\n\n\n\n\n\n\n\n\n\n\n#Testing"
   },
   {
     "objectID": "index.html",
@@ -26,12 +33,5 @@
     "title": "What are the effects of education expenditure on Urban and Rural Populations?",
     "section": "",
     "text": "How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationship between government expenditure on urban populations vs. rural populations. Increased expenditure on education typically increases the urban population, decreases the rural population, but still benefits both in terms of quality of life and access to resources."
-  },
-  {
-    "objectID": "ExpenditureOnEducation.html",
-    "href": "ExpenditureOnEducation.html",
-    "title": "Expenditure On Education",
-    "section": "",
-    "text": "This page shows the correlation between government expenditure on education between various factors."
   }
 ]

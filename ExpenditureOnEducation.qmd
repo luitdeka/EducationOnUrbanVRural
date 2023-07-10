@@ -19,7 +19,7 @@ library(primer.data)
 #| warning: false
 dataset <- read_csv("Data.csv") |>
   as_tibble() |>
-  filter(Time > 2015)
+  filter(Time > 2014)
 ```
 
 
@@ -69,10 +69,13 @@ data1 <- data |>
 
 ```{r}
 data1 |>
-  ggplot(aes(y = Rural_PopGrowth, x = Edu_Exp, .by = Country_Name)) +
-  geom_point() +
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
+  ggplot(aes(y = Rural_PopGrowth, x = Edu_Exp_Short, .by = Country_Name)) +
+  geom_point(aes(color = Time, shape = Time)) +
   geom_smooth(method = "loess", 
-              formula = y ~ x) |>
+              formula = y ~ x) +
+  facet_wrap(~Time) +
   labs(
     title = "Government Expenditure on Education vs. Rural Population Growth over the years",
     subtitle = "About half of the countries experience a decline in rural population \nwhile the other half of them experience an increase in rural population",
@@ -83,11 +86,13 @@ data1 |>
 
 ```{r}
 data1 |>
-  ggplot(aes(y = Urban_PopGrowth, x = Edu_Exp, 
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
+  ggplot(aes(y = Urban_PopGrowth, x = Edu_Exp_Short, 
              .by = Country_Name)) +
-  geom_point() +
-  geom_smooth(method = "loess", 
-              formula = y ~ x) |>
+  geom_point(aes(color = Time, shape = Time)) +
+  facet_wrap(~Time) +
+  geom_smooth(method = "loess", formula = y ~ x) +
   labs(
     title = "Government Expenditure on Education vs. Urban Population Growth over the years",
     subtitle = "Most countries experience an increase in Urban Population",
@@ -96,45 +101,83 @@ data1 |>
   )
 ```
 
+#Testing
+
+
 ```{r}
 data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Elec_Access_Urban)) +
-  geom_point()
+  geom_point(aes(color = Bas_San_Rural)) +
+  geom_smooth(method = "loess", formula = y~x,
+              se = FALSE)
 ```
-
 
 ```{r}
 data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Elec_Access_Rural)) +
-  geom_point()
+  geom_point(aes(color = Bas_San_Rural)) +
+  geom_smooth(method = "loess", formula = y~x,
+              se = FALSE)
 ```
 
 
 ```{r}
 data1 |>
-  ggplot(aes(x = Edu_Exp, y = Bas_Water_Urban)) +
-  geom_point()
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
+  ggplot(aes(x = Edu_Exp, y = Bas_Water_Urban,
+             color = Time)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              formula = y~x,
+              se = FALSE)
 ```
 
 
 
 ```{r}
 data1 |>
-  ggplot(aes(x = Edu_Exp, y = Bas_Water_Rural)) +
-  geom_point()
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
+  ggplot(aes(x = Edu_Exp, y = Bas_Water_Rural,
+             color = Time)) +
+  geom_point() + 
+  geom_smooth(method = "lm",
+              formula = y~x,
+              se = FALSE)
 ```
 
 
 ```{r}
 data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Bas_San_Urban)) +
-  geom_point()
+  geom_point() +
+  geom_line(aes(color = Time))
 ```
 
 
 ```{r}
 data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Bas_San_Rural)) +
-  geom_point()
+  geom_point() +
+  geom_line(aes(color = Time))
 ```
+
+```{r}
+data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+  filter(Edu_Exp_Short < 1) |>
+  ggplot(aes(x = Edu_Exp, fill = Time)) +
+  geom_density(alpha = .5) 
+```
+
+
 
