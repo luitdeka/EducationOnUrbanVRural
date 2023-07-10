@@ -1,4 +1,5 @@
 ---
+title: "What are the effects of education expenditure on Urban and Rural Populations?"
 author: "Luit Deka"
 execute: 
   echo: false
@@ -17,7 +18,7 @@ library(primer.data)
 #| warning: false
 dataset <- read_csv("Data.csv") |>
   as_tibble() |>
-  filter(Time > 2010)
+  filter(Time > 2009)
 ```
 
 ```{r}
@@ -32,51 +33,8 @@ x <- dataset |>
 
 ```
 
-```{r}
-#| message: false
-#| warning: false
-data <- x |> mutate(Educ_Exp_Perc = as.numeric(Educ_Exp_Perc),
-            Rural_PopPerc = as.numeric(Rural_PopPerc),
-            Rural_PopGrowth = as.numeric(Rural_PopGrowth),
-            Urban_PopPerc = as.numeric(Urban_PopPerc),
-            Urban_PopGrowth = as.numeric(Urban_PopGrowth)) |>
-            drop_na()
+How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationship between government expenditure on urban populations vs. rural populations. Increased expenditure on education typically increases the urban population, decreases the rural population, but still benefits both in terms of quality of life and access to resources.
 
-```
-
-
-```{r}
-data |>
-  ggplot(aes(y = Rural_PopGrowth, x = Educ_Exp_Perc, .by = Country_Name)) +
-  geom_point() +
-  geom_smooth(method = "loess", 
-              formula = y ~ x) |>
-  labs(
-    title = "Government Expenditure on Education vs. Rural Population Growth over the years",
-    subtitle = "About half of the countries experience a decline in rural population \nwhile the other half of them experience an increase in rural population",
-    x = "Government Expenditure on Education($)",
-    y = "Percent Rural Population Growth"
-  )
-```
-
-```{r}
-data |>
-  ggplot(aes(y = Urban_PopGrowth, x = Educ_Exp_Perc, 
-             .by = Country_Name)) +
-  geom_point() +
-  geom_smooth(method = "loess", 
-              formula = y ~ x) |>
-  labs(
-    title = "Government Expenditure on Education vs. Urban Population Growth over the years",
-    subtitle = "Most countries experience an increase in Urban Population",
-    x = "Government Expenditure on Education($)",
-    y = "Percent Urban Population Growth"
-  )
-```
-
-```{r}
-
-```
 
 
 

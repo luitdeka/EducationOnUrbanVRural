@@ -16,19 +16,118 @@ library(primer.data)
 #| message: false
 #| warning: false
 dataset <- read_csv("Data.csv") |>
-  as_tibble() 
+  as_tibble() |>
+  filter(Time > 2009)
 ```
 
 ```{r}
 #| message: false
 #| warning: false
 x <- dataset |>
-  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`)|>
-  select(Time, Country_Name,
+  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`, Urban_Pop = `Urban population [SP.URB.TOTL]`, Rural_Pop = `Rural population [SP.RUR.TOTL]`, Gross_Exp = `Gross national expenditure (current US$) [NE.DAB.TOTL.CD]`)|>
+  select(Time, Country_Name, 
+         Educ_Exp_Perc, Gross_Exp,
          Rural_PopPerc, Rural_PopGrowth, 
          Urban_PopPerc, Urban_PopGrowth,
-         Educ_Exp_Perc)
+         Urban_Pop, Rural_Pop)
+
 ```
 
 
+```{r}
+#| message: false
+#| warning: false
+data <- x |> mutate(Educ_Exp_Perc = as.numeric(Educ_Exp_Perc),
+            Rural_PopPerc = as.numeric(Rural_PopPerc),
+            Rural_PopGrowth = as.numeric(Rural_PopGrowth),
+            Urban_PopPerc = as.numeric(Urban_PopPerc),
+            Urban_PopGrowth = as.numeric(Urban_PopGrowth),
+            Gross_Exp = as.numeric(Gross_Exp),
+            Urban_Pop = as.numeric(Urban_Pop),
+            Rural_Pop = as.numeric(Rural_Pop)) |>
+            drop_na()
+
+#data
+
+```
+
+```{r}
+#| message: false
+#| warning: false
+data1 <- data |>
+  filter(Country_Name == "Africa Eastern and Southern" | Country_Name == "Africa Western and Central" | Country_Name == "Middle East & North Africa" | Country_Name == "Central Europe and the Baltics" | Country_Name == "East Asia & Pacific" | Country_Name == "Europe & Central Asia" | Country_Name == "Latin America & the Caribbean (IDA & IBRD countries)" | Country_Name == "North America" | Country_Name == "South Asia" | Country_Name == "Subsaharan Africa") |>
+  mutate(Edu_Exp = (Educ_Exp_Perc / 100) * Gross_Exp)
+```
+
+This page depicts trends withing world regions. The first graph shows the amount of money different world regions spend on education. The second graph shows the urban population within world regions from 2010 to 2021. The third graph does the same but with rural populations. The last graph shows us the urbal and rural growth rates of each world region.
+
+#The Graphs
+East Asia & Pacific, North America, and Europe & Central Asia spend the most on education.
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  ggplot(aes(x = Time, y = Edu_Exp, 
+             color = Country_Name)) +
+  geom_line(aes(group = Country_Name), 
+            color = "grey50") +
+  geom_point(aes(color = Country_Name)) +
+  theme_bw()
+```
+
+
+
+
+
+ The East Asia & Pacific region has the largest urban population while Central Europe & the Baltics, and Southern and Eastern African countries have the lowest urban populations. Urban poulations for all regions are growing.
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  ggplot(aes(x = Time, y = Urban_Pop, 
+             color = Country_Name)) +
+  geom_line(aes(group = Country_Name), 
+            color = "grey50") +
+  geom_point(aes(color = Country_Name)) +
+  theme_bw()
+```
+
+
+
+
+
+The East Asia & Pacific and South Asian regions have the largest rural populations.
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  ggplot(aes(x = Time, y = Rural_Pop)) +
+  geom_line(aes(group = Country_Name), 
+            color = "grey50") +
+  geom_point(aes(color = Country_Name)) +
+  theme_bw()
+```
+
+
+
+
+```{r}
+#| message: false
+#| warning: false
+
+bar <- data1 |>
+  ggplot() + 
+  geom_bar(
+    mapping = aes(x = Country_Name, fill = Country_Name),
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 2)
+
+bar + coord_flip()
+  
+```
 

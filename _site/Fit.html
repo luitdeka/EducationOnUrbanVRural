@@ -8,7 +8,7 @@
 
 <meta name="author" content="Luit Deka">
 
-<title>Effects Education On Urban vs. Rural Population – fit</title>
+<title>Effect of Education on Urban and Rural Populations – fit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Effects Education On Urban vs.&nbsp;Rural Population</span>
+    <span class="navbar-title">Effect of Education on Urban and Rural Populations</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -121,12 +121,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./World Regions.html" rel="" target="">
+ <span class="menu-text">World Regions</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Fit.html" rel="" target="" aria-current="page">
- <span class="menu-text">Fit</span></a>
+    <a class="nav-link" href="./ExpenditureOnEducation.html" rel="" target="">
+ <span class="menu-text">Expenditure On Education</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -174,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">drop_na</span>()</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 159 × 7
+<pre><code># A tibble: 180 × 7
    Time  Country_Name        Rural_PopPerc Rural_PopGrowth Urban_PopPerc
    &lt;chr&gt; &lt;chr&gt;                       &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
  1 2020  Afghanistan                 74.0            2.77           26.0
@@ -187,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 2020  Armenia                     36.7           -0.789          63.3
  9 2020  Australia                   13.8            0.389          86.2
 10 2020  Austria                     41.3           -0.148          58.7
-# ℹ 149 more rows
+# ℹ 170 more rows
 # ℹ 2 more variables: Urban_PopGrowth &lt;dbl&gt;, Educ_Exp &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -203,16 +207,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>stan_glm
  family:       gaussian [identity]
  formula:      Educ_Exp ~ Urban_PopGrowth
- observations: 159
+ observations: 180
  predictors:   2
 ------
                 Median MAD_SD
-(Intercept)     12.5    0.6  
+(Intercept)     12.4    0.5  
 Urban_PopGrowth  0.7    0.2  
 
 Auxiliary parameter(s):
       Median MAD_SD
-sigma 4.7    0.3   
+sigma 4.5    0.2   
 
 ------
 * For help interpreting the printed output see ?print.stanreg
