@@ -1,10 +1,10 @@
 ---
-title: "Expenditure On Education"
+title: "Development Factors"
 execute: 
   echo: false
 ---
 
-This page shows the correlation between government expenditure on education between various factors.
+How does government spending on education affect the development of urban and rural areas? On this page we have 3 sets of graphs analyzing the potential effects of a government's education expenditure on 3 developmental factors: Access to Electricity, Safe Drinking Water and Basic Sanitation Services.
 
 ```{r}
 #| message: false
@@ -67,51 +67,25 @@ data1 <- data |>
 ```
 
 
-```{r}
-data1 |>
-  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
-  filter(Edu_Exp_Short < 1) |>
-  ggplot(aes(y = Rural_PopGrowth, x = Edu_Exp_Short, .by = Country_Name)) +
-  geom_point(aes(color = Time, shape = Time)) +
-  geom_smooth(method = "loess", 
-              formula = y ~ x) +
-  facet_wrap(~Time) +
-  labs(
-    title = "Government Expenditure on Education vs. Rural Population Growth over the years",
-    subtitle = "About half of the countries experience a decline in rural population \nwhile the other half of them experience an increase in rural population",
-    x = "Government Expenditure on Education($)",
-    y = "Percent Rural Population Growth"
-  )
-```
-
-```{r}
-data1 |>
-  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
-  filter(Edu_Exp_Short < 1) |>
-  ggplot(aes(y = Urban_PopGrowth, x = Edu_Exp_Short, 
-             .by = Country_Name)) +
-  geom_point(aes(color = Time, shape = Time)) +
-  facet_wrap(~Time) +
-  geom_smooth(method = "loess", formula = y ~ x) +
-  labs(
-    title = "Government Expenditure on Education vs. Urban Population Growth over the years",
-    subtitle = "Most countries experience an increase in Urban Population",
-    x = "Government Expenditure on Education($)",
-    y = "Percent Urban Population Growth"
-  )
-```
-
-#Testing
-
 
 ```{r}
 data1 |>
   mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
   filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Elec_Access_Urban)) +
-  geom_point(aes(color = Bas_San_Rural)) +
+  geom_point(aes(color = Elec_Access_Urban)) +
   geom_smooth(method = "loess", formula = y~x,
-              se = FALSE)
+              se = FALSE) +
+  labs(
+    title = "Education Expenditure vs. Percent of Urban Population\nwith Access to Electricity",
+    subtitle = "There is a logarithmic positive correlation",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Urban Population\nwith Electricity",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B")) 
+  
 ```
 
 ```{r}
@@ -119,9 +93,18 @@ data1 |>
   mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
   filter(Edu_Exp_Short < 1) |>
   ggplot(aes(x = Edu_Exp, y = Elec_Access_Rural)) +
-  geom_point(aes(color = Bas_San_Rural)) +
+  geom_point(aes(color = Elec_Access_Rural)) +
   geom_smooth(method = "loess", formula = y~x,
-              se = FALSE)
+              se = FALSE) +
+  labs(
+    title = "Education Expenditure vs. Percent of Rural Population\nwith Access to Electricity",
+    subtitle = "There is a logarithmic positive correlation",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Rural Population\nwith Electricity",
+    caption = "Source: WorldBank Dataset"
+    ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B")) 
 ```
 
 
@@ -134,7 +117,16 @@ data1 |>
   geom_point() +
   geom_smooth(method = "lm",
               formula = y~x,
-              se = FALSE)
+              se = FALSE) +
+  labs(
+    title = "Education Expenditure vs. Percent of Urban Population\nwith Access to Safe Drinking Water",
+    subtitle = "There is a clear positive trend",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Urban Population\nwith Safe Drinking Water",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B")) 
 ```
 
 
@@ -148,7 +140,16 @@ data1 |>
   geom_point() + 
   geom_smooth(method = "lm",
               formula = y~x,
-              se = FALSE)
+              se = FALSE) +
+  labs(
+    title = "Education Expenditure vs. Percent of Rural Population\nwith Access to Safe Drinking Water",
+    subtitle = "There is a clear positive trend",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Rural Population\nwith Safe Drinking Water",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B"))
 ```
 
 
@@ -156,9 +157,19 @@ data1 |>
 data1 |>
   mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
   filter(Edu_Exp_Short < 1) |>
-  ggplot(aes(x = Edu_Exp, y = Bas_San_Urban)) +
+  ggplot(aes(x = Edu_Exp, y = Bas_San_Urban,
+             alpha = Bas_San_Urban,
+             size = Bas_San_Urban)) +
   geom_point() +
-  geom_line(aes(color = Time))
+  labs(
+    title = "Education Expenditure vs. Percent of Urban Population\nwith Access to Sanitation Services",
+    subtitle = "There is a clear positive trend",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Urban Population\nwith Basic Sanitation",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B"))
 ```
 
 
@@ -166,17 +177,28 @@ data1 |>
 data1 |>
   mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
   filter(Edu_Exp_Short < 1) |>
-  ggplot(aes(x = Edu_Exp, y = Bas_San_Rural)) +
+  ggplot(aes(x = Edu_Exp, y = Bas_San_Rural,
+             alpha = Bas_San_Urban,
+             size = Bas_San_Urban)) +
   geom_point() +
-  geom_line(aes(color = Time))
+  labs(
+    title = "Education Expenditure vs. Percent of Rural Population\nwith Access to Sanitation Services",
+    subtitle = "There is a clear positive trend",
+    x = "Government Expenditure on Education($)\n(Billions of dollars)",
+    y = "Percent Rural Population\nwith Basic Sanitation",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000000000, suffix = "B"))
 ```
 
 ```{r}
-data1 |>
-  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
-  filter(Edu_Exp_Short < 1) |>
-  ggplot(aes(x = Edu_Exp, fill = Time)) +
-  geom_density(alpha = .5) 
+
+#data1 |>
+#  mutate(Edu_Exp_Short = Edu_Exp / 100000000000) |>
+#  filter(Edu_Exp_Short < 1) |>
+#  ggplot(aes(x = Edu_Exp, fill = Time)) +
+#  geom_density(alpha = .5) 
 ```
 
 

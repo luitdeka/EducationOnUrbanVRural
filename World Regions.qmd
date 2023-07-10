@@ -17,7 +17,7 @@ library(primer.data)
 #| warning: false
 dataset <- read_csv("Data.csv") |>
   as_tibble() |>
-  filter(Time > 2009)
+  filter(Time > 2009 & Time < 2021)
 ```
 
 ```{r}
@@ -59,69 +59,8 @@ data1 <- data |>
   mutate(Edu_Exp = (Educ_Exp_Perc / 100) * Gross_Exp)
 ```
 
-This page depicts trends withing world regions. The first graph shows the amount of money different world regions spend on education. The second graph shows the urban population within world regions from 2010 to 2021. The third graph does the same but with rural populations. The last graph shows us the urbal and rural growth rates of each world region.
+This page depicts trends within world regions. The first graph shows us the world regions that will be used in the subsequent graphs. The second graph shows the amount of money different world regions spend on education. The third graph shows the urban population within world regions from 2010 to 2020. The last graph does the same but with rural populations. 
 
-#The Graphs
-East Asia & Pacific, North America, and Europe & Central Asia spend the most on education.
-
-```{r}
-#| message: false
-#| warning: false
-data1 |>
-  mutate(World_Region = Country_Name) |>
-  ggplot(aes(x = Time, y = Edu_Exp, 
-             color = World_Region)) +
-  geom_line(aes(group = World_Region), 
-            color = "grey50") +
-  geom_point(aes(color = World_Region)) +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        legend.direction = "vertical",
-        legend.text.align = 0)
-```
-
-
-
-
-
- The East Asia & Pacific region has the largest urban population while Central Europe & the Baltics, and Southern and Eastern African countries have the lowest urban populations. Urban poulations for all regions are growing.
-
-```{r}
-#| message: false
-#| warning: false
-data1 |>
-  mutate(World_Region = Country_Name) |>
-  ggplot(aes(x = Time, y = Urban_Pop, 
-             color = World_Region)) +
-  geom_line(aes(group = World_Region), 
-            color = "grey50") +
-  geom_point(aes(color = World_Region)) +
-  theme_bw()  +
-  theme(legend.position = "bottom",
-        legend.direction = "vertical",
-        legend.text.align = 0)
-```
-
-
-
-
-
-The East Asia & Pacific and South Asian regions have the largest rural populations.
-
-```{r}
-#| message: false
-#| warning: false
-data1 |>
-  mutate(World_Region = Country_Name) |>
-  ggplot(aes(x = Time, y = Rural_Pop)) +
-  geom_line(aes(group = World_Region), 
-            color = "grey50") +
-  geom_point(aes(color = World_Region)) +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        legend.direction = "vertical",
-        legend.text.align = 0)
-```
 
 
 ```{r}
@@ -137,9 +76,89 @@ bar <- data1 |>
     show.legend = FALSE,
     width = 1
   ) + 
-  theme(aspect.ratio = .5)
+  labs(
+    title = "The World Regions",
+    x = "", y = "",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  theme(aspect.ratio = .5) +
+  theme_classic()
 
 bar + coord_polar()
   
 ```
+
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 1000000000000) |>
+  mutate(World_Region = Country_Name) |>
+  ggplot(aes(x = Time, y = Edu_Exp_Short, 
+             color = World_Region)) +
+  geom_line(aes(group = World_Region), 
+            color = "grey50") +
+  geom_point(aes(color = World_Region)) +
+  labs(
+    title = "Expenditure on Education over Time by World Region",
+    subtitle = "East Asia & Pacific, North America, and Europe & Central Asia spend the most on education",
+    x = "Year", y = "Education Expenditure\n(Trillions of $)",
+    caption = "Source: WorldBank Dataset") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
+```
+
+
+
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  mutate(Urban_Short = Urban_Pop / 1000000000) |>
+  mutate(World_Region = Country_Name) |>
+  ggplot(aes(x = Time, y = Urban_Short, 
+             color = World_Region)) +
+  geom_line(aes(group = World_Region), 
+            color = "grey50") +
+  geom_point(aes(color = World_Region)) +
+  labs(
+    title = "Urban Population over Time by World Region",
+    subtitle = "The East Asia & Pacific region has the largest urban population while \nCentral Europe & the Baltics, and African countries have the lowest urban populations",
+    x = "Year", y = "Urban Population\n(Billions)",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  theme_bw()  +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
+```
+
+
+
+```{r}
+#| message: false
+#| warning: false
+data1 |>
+  mutate(Rural_Short = Rural_Pop / 1000000000) |>
+  mutate(World_Region = Country_Name) |>
+  ggplot(aes(x = Time, y = Rural_Short)) +
+  geom_line(aes(group = World_Region), 
+            color = "grey50") +
+  geom_point(aes(color = World_Region)) +
+  labs(
+    title = "Rural Population over Time by World Region",
+    subtitle = "The East Asia & Pacific and South Asian regions have the largest rural populations",
+    x = "Year", y = "Rural Population\n(Billions)",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.text.align = 0)
+```
+
 

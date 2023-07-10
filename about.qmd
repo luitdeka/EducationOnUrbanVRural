@@ -7,8 +7,3 @@ My Name is Luit Deka and I am a senior at Liberty High School, Frisco TX USA. Yo
 I was fortunate to learn about data science in "Kane’s Free Data Science Course" led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science.
 [Kane's Free Data Science Bootcamp](https://bootcamp.davidkane.info/)
 
-Sources for this project:
-
-https://datacatalog.worldbank.org/search/dataset/0037712
-
-https://databank.worldbank.org/reports.aspx?source=world-development-indicators#

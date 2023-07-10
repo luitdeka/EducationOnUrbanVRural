@@ -5,6 +5,10 @@ execute:
   echo: false
 ---
 
+
+How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs. rural populations. The graphs below show that there is no connection between urban and rural population growths and how much a country's government spends on its education department. However, that's only half of the picture.
+
+
 ```{r}
 #| message: false
 #| warning: false
@@ -18,22 +22,91 @@ library(primer.data)
 #| warning: false
 dataset <- read_csv("Data.csv") |>
   as_tibble() |>
-  filter(Time > 2009)
+  filter(Time > 2014)
 ```
 
 ```{r}
 #| message: false
 #| warning: false
 x <- dataset |>
-  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`)|>
-  select(Time, Country_Name,
+  mutate(Rural_PopPerc = `Rural population (% of total population) [SP.RUR.TOTL.ZS]`, Urban_PopPerc = `Urban population (% of total population) [SP.URB.TOTL.IN.ZS]`, Rural_PopGrowth = `Rural population growth (annual %) [SP.RUR.TOTL.ZG]`, Urban_PopGrowth = `Urban population growth (annual %) [SP.URB.GROW]`, Educ_Exp_Perc = `Government expenditure on education, total (% of government expenditure) [SE.XPD.TOTL.GB.ZS]`, Country_Name = `Country Name`, Urban_Pop = `Urban population [SP.URB.TOTL]`, Rural_Pop = `Rural population [SP.RUR.TOTL]`, Gross_Exp = `Gross national expenditure (current US$) [NE.DAB.TOTL.CD]`, Elec_Access_Urban = `Access to electricity, urban (% of urban population) [EG.ELC.ACCS.UR.ZS]`, Elec_Access_Rural = `Access to electricity, rural (% of rural population) [EG.ELC.ACCS.RU.ZS]`, Bas_Water_Urban = `People using at least basic drinking water services, urban (% of urban population) [SH.H2O.BASW.UR.ZS]`, Bas_Water_Rural = `People using at least basic drinking water services, rural (% of rural population) [SH.H2O.BASW.RU.ZS]`, Bas_San_Urban = `People using at least basic sanitation services, urban (% of urban population) [SH.STA.BASS.UR.ZS]`, Bas_San_Rural = `People using at least basic sanitation services, rural (% of rural population) [SH.STA.BASS.RU.ZS]`)|>
+  select(Time, Country_Name, 
+         Educ_Exp_Perc, Gross_Exp,
          Rural_PopPerc, Rural_PopGrowth, 
          Urban_PopPerc, Urban_PopGrowth,
-         Educ_Exp_Perc)
+         Urban_Pop, Rural_Pop,
+         Elec_Access_Urban, Elec_Access_Rural,
+         Bas_Water_Urban, Bas_Water_Rural,
+         Bas_San_Urban, Bas_San_Rural)
 
 ```
 
-How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationship between government expenditure on urban populations vs. rural populations. Increased expenditure on education typically increases the urban population, decreases the rural population, but still benefits both in terms of quality of life and access to resources.
+```{r}
+#| message: false
+#| warning: false
+data <- x |> mutate(Educ_Exp_Perc = as.numeric(Educ_Exp_Perc),
+            Rural_PopPerc = as.numeric(Rural_PopPerc),
+            Rural_PopGrowth = as.numeric(Rural_PopGrowth),
+            Urban_PopPerc = as.numeric(Urban_PopPerc),
+            Urban_PopGrowth = as.numeric(Urban_PopGrowth),
+            Gross_Exp = as.numeric(Gross_Exp),
+            Urban_Pop = as.numeric(Urban_Pop),
+            Rural_Pop = as.numeric(Rural_Pop),
+            Elec_Access_Urban = as.numeric(Elec_Access_Urban),
+            Elec_Access_Rural = as.numeric(Elec_Access_Rural), 
+            Bas_Water_Urban = as.numeric(Bas_Water_Urban),
+            Bas_Water_Rural = as.numeric(Bas_Water_Rural),
+            Bas_San_Urban = as.numeric(Bas_San_Urban),
+            Bas_San_Rural = as.numeric(Bas_San_Rural)) |>
+            drop_na()
+```
+
+```{r}
+data1 <- data |>
+  mutate(Edu_Exp = (Educ_Exp_Perc / 100) * Gross_Exp)
+```
+
+```{r}
+data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000,
+         Growth_Short = Rural_PopGrowth / 100) |>
+  filter(Edu_Exp_Short < 5) |>
+  ggplot(aes(y = Growth_Short, x = Edu_Exp_Short, .by = Country_Name)) +
+  geom_point(aes(color = Time, shape = Time)) +
+  geom_smooth(method = "loess", 
+              formula = y ~ x) +
+  facet_wrap(~Time) +
+  labs(
+    title = "Government Expenditure on Education vs. Rural Population Growth over the years",
+    subtitle = "No apparent correlation",
+    x = "Government Expenditure on Education\n(Tens of billions of dollars)",
+    y = "Percent Rural Population Growth",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_continuous(labels = scales::dollar_format())
+```
+
+```{r}
+data1 |>
+  mutate(Edu_Exp_Short = Edu_Exp / 100000000000,
+         Growth_Short = Urban_PopGrowth / 100) |>
+  filter(Edu_Exp_Short < 5) |>
+  ggplot(aes(y = Growth_Short, x = Edu_Exp_Short, 
+             .by = Country_Name)) +
+  geom_point(aes(color = Time, shape = Time)) +
+  facet_wrap(~Time) +
+  geom_smooth(method = "loess", formula = y ~ x) +
+  labs(
+    title = "Government Expenditure on Education vs. Urban Population Growth over the years",
+    subtitle = "No apparent correlation",
+    x = "Government Expenditure on Education($)\n(Tens of billions of dollars)",
+    y = "Percent Urban Population Growth",
+    caption = "Source: WorldBank Dataset"
+  ) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_continuous(labels = scales::dollar_format()) 
+```
 
 
 

@@ -4,7 +4,7 @@
     "href": "World Regions.html",
     "title": "World Regions",
     "section": "",
-    "text": "This page depicts trends withing world regions. The first graph shows the amount of money different world regions spend on education. The second graph shows the urban population within world regions from 2010 to 2021. The third graph does the same but with rural populations. The last graph shows us the urbal and rural growth rates of each world region.\n#The Graphs East Asia & Pacific, North America, and Europe & Central Asia spend the most on education.\n\n\n\n\n\nThe East Asia & Pacific region has the largest urban population while Central Europe & the Baltics, and Southern and Eastern African countries have the lowest urban populations. Urban poulations for all regions are growing.\n\n\n\n\n\nThe East Asia & Pacific and South Asian regions have the largest rural populations."
+    "text": "This page depicts trends within world regions. The first graph shows us the world regions that will be used in the subsequent graphs. The second graph shows the amount of money different world regions spend on education. The third graph shows the urban population within world regions from 2010 to 2020. The last graph does the same but with rural populations.\n#The Graphs"
   },
   {
     "objectID": "Fit.html",
@@ -18,20 +18,34 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "My Name is Luit Deka and I am a senior at Liberty High School, Frisco TX USA. You can reach me at luitdeka@gmail.com.\nI was fortunate to learn about data science in “Kane’s Free Data Science Course” led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science. Kane’s Free Data Science Bootcamp\nSources for this project:\nhttps://datacatalog.worldbank.org/search/dataset/0037712\nhttps://databank.worldbank.org/reports.aspx?source=world-development-indicators#"
+    "text": "My Name is Luit Deka and I am a senior at Liberty High School, Frisco TX USA. You can reach me at luitdeka@gmail.com.\nI was fortunate to learn about data science in “Kane’s Free Data Science Course” led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science. Kane’s Free Data Science Bootcamp"
   },
   {
     "objectID": "ExpenditureOnEducation.html",
     "href": "ExpenditureOnEducation.html",
-    "title": "Expenditure On Education",
+    "title": "Development Factors",
     "section": "",
-    "text": "This page shows the correlation between government expenditure on education between various factors.\n\n\n\n\n\n\n\n\n\n\n#Testing"
+    "text": "How does government spending on education affect the development of urban and rural populations? On this page we have 3 sets of graphs analyzing the potential effects of a government’s education expenditure on 3 developmental factors: Access to Electricity, Safe Drinking Water and Basic Sanitation Services."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "What are the effects of education expenditure on Urban and Rural Populations?",
     "section": "",
-    "text": "How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationship between government expenditure on urban populations vs. rural populations. Increased expenditure on education typically increases the urban population, decreases the rural population, but still benefits both in terms of quality of life and access to resources."
+    "text": "How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs. rural populations. The graphs below show that there is no connection between urban and rural population growths and how much a country’s government spends on its education department. However, that’s only half of the picture."
+  },
+  {
+    "objectID": "Sources.html",
+    "href": "Sources.html",
+    "title": "Sources",
+    "section": "",
+    "text": "All of my sources for this project are from the WorldBank Universal Indicator Database. Source Links are below:\nhttps://datacatalog.worldbank.org/search/dataset/0037712\nhttps://databank.worldbank.org/reports.aspx?source=world-development-indicators#"
+  },
+  {
+    "objectID": "Conclusion.html",
+    "href": "Conclusion.html",
+    "title": "Conclusion",
+    "section": "",
+    "text": "As we saw in the Home page, increased expenditure on education does not impact urban and rural population growths. Despite this, increased spending on education still benefits both rural and urban populations in terms of quality of life and access to resources. However, it is important to keep in mind that these relationships are mainly correlative as there are many other factors that we must consider to determine if these associations are causal."
   }
 ]

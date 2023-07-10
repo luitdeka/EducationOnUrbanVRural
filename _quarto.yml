@@ -10,8 +10,11 @@ website:
       - href: World Regions.qmd
         text: World Regions
       - href: ExpenditureOnEducation.qmd
-        text: Expenditure On Education
+        text: Development Factors
+      - href: Conclusion.qmd
+        text: Conclusion
       - about.qmd
+      - Sources.qmd
 
 format:
   html:
