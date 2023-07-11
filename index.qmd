@@ -5,8 +5,9 @@ execute:
   echo: false
 ---
 
+## ProjectSummary
 
-How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs. rural populations. The graphs below show that there is no connection between urban and rural population growths and how much a country's government spends on its education department. However, that's only half of the picture.
+How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs. rural populations. The graphs below show that there is very little connection between urban and rural population growths and how much a country's government spends on its education department. The linear regression models in the models tab depict that as well.
 
 
 ```{r}
@@ -77,8 +78,7 @@ data1 |>
               formula = y ~ x) +
   facet_wrap(~Time) +
   labs(
-    title = "Government Expenditure on Education vs. Rural Population Growth over the years",
-    subtitle = "No apparent correlation",
+    title = "Government Expenditure on Education vs. Rural Population Growth",
     x = "Government Expenditure on Education\n(Tens of billions of dollars)",
     y = "Percent Rural Population Growth",
     caption = "Source: WorldBank Dataset"
@@ -98,8 +98,7 @@ data1 |>
   facet_wrap(~Time) +
   geom_smooth(method = "loess", formula = y ~ x) +
   labs(
-    title = "Government Expenditure on Education vs. Urban Population Growth over the years",
-    subtitle = "No apparent correlation",
+    title = "Government Expenditure on Education vs. Urban Population Growth",
     x = "Government Expenditure on Education($)\n(Tens of billions of dollars)",
     y = "Percent Urban Population Growth",
     caption = "Source: WorldBank Dataset"

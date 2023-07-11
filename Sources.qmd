@@ -2,7 +2,9 @@
 title: "Sources"
 ---
 
-All of my sources for this project are from the WorldBank Universal Indicator Database. Source Links are below:
+All of my sources for this project are from the WorldBank Universal Indicator Database.  
+
+## Sources
 
 https://datacatalog.worldbank.org/search/dataset/0037712
 

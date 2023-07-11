@@ -2,4 +2,4 @@
 title: "Conclusion"
 ---
 
-As we saw in the Home page, increased expenditure on education does not impact urban and rural population growths. Despite this, increased spending on education still benefits both rural and urban populations in terms of quality of life and access to resources. However, it is important to keep in mind that these relationships are mainly correlative as there are many other factors that we must consider before we determine these associations to be causal.
+As we saw in the Home and model pages, increased expenditure on education does not have a substantial impact upon urban and rural population growths. Despite this, increased spending on education still benefits both rural and urban populations in terms of quality of life and access to resources. However, it is important to keep in mind that these relationships are mainly correlative as there are many other factors that we must consider before we determine these associations to be causal.

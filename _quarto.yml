@@ -7,18 +7,21 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: World Regions.qmd
-        text: World Regions
-      - href: ExpenditureOnEducation.qmd
-        text: Development Factors
-      - href: Conclusion.qmd
-        text: Conclusion
+      - href: Fit.qmd
+        text: Model Analysis  
+      - text: Further Analysis
+        menu: 
+          - href: World Regions.qmd
+            text: World Regions
+          - href: ExpenditureOnEducation.qmd
+            text: Development Factors
+          - Conclusion.qmd
       - about.qmd
       - Sources.qmd
 
 format:
   html:
-    theme: cosmo
+    theme: Solarize
     css: styles.css
     toc: true
 

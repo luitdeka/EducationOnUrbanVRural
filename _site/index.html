@@ -87,17 +87,28 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./World Regions.html" rel="" target="">
- <span class="menu-text">World Regions</span></a>
+    <a class="nav-link" href="./Fit.html" rel="" target="">
+ <span class="menu-text">Model Analysis</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ExpenditureOnEducation.html" rel="" target="">
- <span class="menu-text">Development Factors</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-further-analysis" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Further Analysis</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-further-analysis">    
+        <li>
+    <a class="dropdown-item" href="./World Regions.html" rel="" target="">
+ <span class="dropdown-text">World Regions</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Conclusion.html" rel="" target="">
- <span class="menu-text">Conclusion</span></a>
+        <li>
+    <a class="dropdown-item" href="./ExpenditureOnEducation.html" rel="" target="">
+ <span class="dropdown-text">Development Factors</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./Conclusion.html" rel="" target="">
+ <span class="dropdown-text">Conclusion</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./about.html" rel="" target="">
  <span class="menu-text">About Me</span></a>
@@ -118,7 +129,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#projectsummary" id="toc-projectsummary" class="nav-link active" data-scroll-target="#projectsummary">ProjectSummary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -146,7 +163,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs.&nbsp;rural populations. The graphs below show that there is no connection between urban and rural population growths and how much a country’s government spends on its education department. However, that’s only half of the picture.</p>
+<section id="projectsummary" class="level2">
+<h2 class="anchored" data-anchor-id="projectsummary">ProjectSummary</h2>
+<p>How does the effects of national government expenditure on education differ from the urban population to the rural population? The data to answer the question was sourced from the World Bank Universal Indicator dataset, and then the relevant data frames were combined to analyze the relationships between government expenditure on urban populations vs.&nbsp;rural populations. The graphs below show that there is very little connection between urban and rural population growths and how much a country’s government spends on its education department. The linear regression models in the models tab depict that as well.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
@@ -159,6 +178,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

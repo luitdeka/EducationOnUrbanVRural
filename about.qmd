@@ -4,6 +4,8 @@ title: "About Me"
 
 My Name is Luit Deka and I am a senior at Liberty High School, Frisco TX USA. You can reach me at luitdeka@gmail.com. 
 
-I was fortunate to learn about data science in "Kane’s Free Data Science Course" led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science.
-[Kane's Free Data Science Bootcamp](https://bootcamp.davidkane.info/)
+Here is [My Github](https://github.com/luitdeka)
+
+I was fortunate to learn about data science in [Kane's Free Data Science Bootcamp](https://bootcamp.davidkane.info/) led by Preceptor David Kane PhD. I recommend this course to anyone interested in Data Science.
+
 
